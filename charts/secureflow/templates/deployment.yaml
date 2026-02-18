@@ -12,13 +12,10 @@ spec:
       labels:
         app: {{ .Chart.Name }}
     spec:
-      # --- CRITICAL FIX START ---
-      # This pulls from the root of values.yaml
-      {{- if .Values.imagePullSecrets }}
+      
       imagePullSecrets:
-        {{- toYaml .Values.imagePullSecrets | nindent 8 }}
-      {{- end }}
-      # --- CRITICAL FIX END ---
+        - name: ecr-secret
+      
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
