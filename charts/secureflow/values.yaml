@@ -1,0 +1,11 @@
+image:
+  repository: http://563046585342.dkr.ecr.us-east-1.amazonaws.com/secureflow-app  
+  tag: latest
+  pullPolicy: Always
+
+service:
+  type: ClusterIP
+  port: 80
+
+env:
+  name: "Production"
