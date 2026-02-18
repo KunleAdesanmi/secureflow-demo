@@ -4,10 +4,6 @@ metadata:
   name: {{ .Chart.Name }}
 spec:
   replicas: 1
-  {{- if .Values.image.imagePullSecrets }}
-  imagePullSecrets:
-    {{- toYaml .Values.image.imagePullSecrets | nindent 4 }}
-  {{- end }}
   selector:
     matchLabels:
       app: {{ .Chart.Name }}
@@ -16,6 +12,13 @@ spec:
       labels:
         app: {{ .Chart.Name }}
     spec:
+      # --- CRITICAL FIX START ---
+      # This pulls from the root of values.yaml
+      {{- if .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml .Values.imagePullSecrets | nindent 8 }}
+      {{- end }}
+      # --- CRITICAL FIX END ---
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
