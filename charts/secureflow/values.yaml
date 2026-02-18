@@ -3,8 +3,8 @@ image:
   tag: latest
   pullPolicy: Always
 
-  imagePullSecrets:
-    - name: ecr-secret
+imagePullSecrets:
+  - name: ecr-secret
 
 service:
   type: ClusterIP
